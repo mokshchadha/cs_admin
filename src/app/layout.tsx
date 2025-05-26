@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Auth App',
-  description: 'Next.js Authentication App',
+  title: 'Career Secure',
+  description: 'Career secure internal app',
 };
 
 export default function RootLayout({
