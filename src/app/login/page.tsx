@@ -97,11 +97,6 @@ export default function Login() {
           </div>
 
           <div className="text-center text-sm text-gray-600">
-            <div className="bg-gray-50 p-4 rounded-md">
-              <p className="font-medium mb-2">Demo credentials:</p>
-              <p>Username: <span className="font-mono">admin</span>, Password: <span className="font-mono">password123</span></p>
-              <p>Username: <span className="font-mono">demo</span>, Password: <span className="font-mono">demo</span></p>
-            </div>
           </div>
         </form>
       </div>
