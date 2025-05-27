@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Career Secure',
-  description: 'Career secure internal app',
+  title: 'Admin Career Secure',
+  description: 'Career secure admin app',
 };
 
 export default function RootLayout({
