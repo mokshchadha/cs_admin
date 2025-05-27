@@ -1,13 +1,16 @@
 // src/components/CandidateForm.tsx
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { omit } from "lodash";
+
+import { DatabaseUser } from "@/lib/types";
+import { useState, useEffect } from "react";
 
 interface CandidateFormProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
-  user?: any;
+  user: DatabaseUser | null;
   isEditing?: boolean;
 }
 
@@ -19,50 +22,50 @@ export default function CandidateForm({
   isEditing = false,
 }: CandidateFormProps) {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    companyEmail: '',
-    phoneNumber: '',
-    officeEmail: '',
-    cinPanGst: '',
-    password: '',
+    name: "",
+    email: "",
+    companyEmail: "",
+    phoneNumber: "",
+    officeEmail: "",
+    cinPanGst: "",
+    password: "",
     agreeToTerms: false,
     isRecruiter: false,
     isVerified: false,
-    remarks: '',
+    remarks: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (user && isEditing) {
       setFormData({
-        name: user.name || '',
-        email: user.email || '',
-        companyEmail: user.companyEmail || '',
-        phoneNumber: user.phoneNumber || '',
-        officeEmail: user.officeEmail || '',
-        cinPanGst: user.cinPanGst || '',
-        password: '',
+        name: user.name || "",
+        email: user.email || "",
+        companyEmail: user.companyEmail || "",
+        phoneNumber: user.phoneNumber || "",
+        officeEmail: user.officeEmail || "",
+        cinPanGst: user.cinPanGst || "",
+        password: "",
         agreeToTerms: user.agreeToTerms || false,
         isRecruiter: user.isRecruiter || false,
         isVerified: user.isVerified || false,
-        remarks: user.remarks || '',
+        remarks: user.remarks || "",
       });
     } else {
       setFormData({
-        name: '',
-        email: '',
-        companyEmail: '',
-        phoneNumber: '',
-        officeEmail: '',
-        cinPanGst: '',
-        password: '',
+        name: "",
+        email: "",
+        companyEmail: "",
+        phoneNumber: "",
+        officeEmail: "",
+        cinPanGst: "",
+        password: "",
         agreeToTerms: false,
         isRecruiter: false,
         isVerified: false,
-        remarks: '',
+        remarks: "",
       });
     }
   }, [user, isEditing]);
@@ -70,22 +73,22 @@ export default function CandidateForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
+    setError("");
 
     try {
-      const url = isEditing ? `/api/users/${user._id}` : '/api/users';
-      const method = isEditing ? 'PUT' : 'POST';
+      const url = isEditing ? `/api/users/${user?._id}` : "/api/users";
+      const method = isEditing ? "PUT" : "POST";
 
       // Don't send empty password for updates
-      const submitData = { ...formData };
+      let submitData = { ...formData };
       if (isEditing && !submitData.password) {
-        delete submitData.password;
+        submitData = omit(submitData, "password") as typeof submitData;
       }
 
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(submitData),
       });
@@ -96,43 +99,56 @@ export default function CandidateForm({
         onSuccess();
         onClose();
       } else {
-        setError(data.message || 'An error occurred');
+        setError(data.message || "An error occurred");
       }
     } catch (error) {
-      console.error('Form submission error:', error);
-      setError('An error occurred. Please try again.');
+      console.error("Form submission error:", error);
+      setError("An error occurred. Please try again.");
     }
     setIsLoading(false);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value, type } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+      [name]:
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
   return (
-    <div 
+    <div
       className={`fixed top-0 right-0 h-full bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
-        isOpen ? 'translate-x-0' : 'translate-x-full'
+        isOpen ? "translate-x-0" : "translate-x-full"
       }`}
-      style={{ width: '400px' }}
+      style={{ width: "400px" }}
     >
       <div className="h-full flex flex-col">
         {/* Header */}
         <div className="bg-white px-6 py-4 border-b border-gray-200 flex-shrink-0">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-gray-900">
-              {isEditing ? 'Edit User' : 'Add New User'}
+              {isEditing ? "Edit User" : "Add New User"}
             </h2>
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600 transition-colors"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -169,13 +185,21 @@ export default function CandidateForm({
               <div className="flex items-center space-x-2">
                 <input
                   type="date"
-                  value={user?.createdAt ? new Date(user.createdAt).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10)}
+                  value={
+                    user?.createdAt
+                      ? new Date(user.createdAt).toISOString().slice(0, 10)
+                      : new Date().toISOString().slice(0, 10)
+                  }
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm"
                   disabled
                 />
                 <input
                   type="time"
-                  value={user?.createdAt ? new Date(user.createdAt).toTimeString().slice(0, 5) : new Date().toTimeString().slice(0, 5)}
+                  value={
+                    user?.createdAt
+                      ? new Date(user.createdAt).toTimeString().slice(0, 5)
+                      : new Date().toTimeString().slice(0, 5)
+                  }
                   className="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm"
                   disabled
                 />
@@ -298,13 +322,21 @@ export default function CandidateForm({
               <div className="flex items-center space-x-2">
                 <input
                   type="date"
-                  value={user?.updatedAt ? new Date(user.updatedAt).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10)}
+                  value={
+                    user?.updatedAt
+                      ? new Date(user.updatedAt).toISOString().slice(0, 10)
+                      : new Date().toISOString().slice(0, 10)
+                  }
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm"
                   disabled
                 />
                 <input
                   type="time"
-                  value={user?.updatedAt ? new Date(user.updatedAt).toTimeString().slice(0, 5) : new Date().toTimeString().slice(0, 5)}
+                  value={
+                    user?.updatedAt
+                      ? new Date(user.updatedAt).toTimeString().slice(0, 5)
+                      : new Date().toTimeString().slice(0, 5)
+                  }
                   className="px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-sm"
                   disabled
                 />
@@ -344,7 +376,7 @@ export default function CandidateForm({
             disabled={isLoading}
             className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-blue-400 transition-colors text-sm font-medium"
           >
-            {isLoading ? 'Saving...' : 'Submit'}
+            {isLoading ? "Saving..." : "Submit"}
           </button>
         </div>
       </div>

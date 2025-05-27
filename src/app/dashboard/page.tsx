@@ -1,26 +1,10 @@
 // src/app/dashboard/page.tsx
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Layout from '../../components/Layout';
-import CandidateForm from '../../components/CandidateForm';
-import { User } from '../../lib/types';
-
-interface DatabaseUser {
-  _id: string;
-  name?: string;
-  email?: string;
-  companyEmail?: string;
-  phoneNumber: string;
-  officeEmail?: string;
-  cinPanGst?: string;
-  agreeToTerms: boolean;
-  isRecruiter: boolean;
-  isVerified: boolean;
-  remarks?: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { useState, useEffect, useCallback } from "react";
+import Layout from "../../components/Layout";
+import CandidateForm from "../../components/CandidateForm";
+import { DatabaseUser, User } from "../../lib/types";
 
 interface Pagination {
   page: number;
@@ -39,16 +23,16 @@ export default function Dashboard() {
     total: 0,
     pages: 0,
   });
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<DatabaseUser | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [usersLoading, setUsersLoading] = useState(false);
 
   useEffect(() => {
-    fetch('/api/user')
-      .then(res => res.json())
-      .then(data => {
+    fetch("/api/user")
+      .then((res) => res.json())
+      .then((data) => {
         if (data.user) {
           setUser(data.user);
         }
@@ -59,7 +43,7 @@ export default function Dashboard() {
       });
   }, []);
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     setUsersLoading(true);
     try {
       const params = new URLSearchParams({
@@ -76,24 +60,24 @@ export default function Dashboard() {
         setPagination(data.pagination);
       }
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error("Error fetching users:", error);
     }
     setUsersLoading(false);
-  };
+  }, [pagination.page, pagination.limit, search]);
 
   useEffect(() => {
     if (!loading) {
       fetchUsers();
     }
-  }, [pagination.page, search, loading]);
+  }, [fetchUsers, loading]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    setPagination(prev => ({ ...prev, page: 1 }));
+    setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
   const handlePageChange = (newPage: number) => {
-    setPagination(prev => ({ ...prev, page: newPage }));
+    setPagination((prev) => ({ ...prev, page: newPage }));
   };
 
   const handleCreateNew = () => {
@@ -113,12 +97,12 @@ export default function Dashboard() {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -135,13 +119,21 @@ export default function Dashboard() {
 
   return (
     <Layout user={user || undefined}>
-      <div className={`transition-all duration-300 ease-in-out ${isFormOpen ? 'mr-[400px]' : ''}`}>
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          isFormOpen ? "mr-[400px]" : ""
+        }`}
+      >
         <div className="max-w-full mx-auto py-6 px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
-              <p className="mt-1 text-gray-600">Manage candidates and recruiters</p>
+              <h1 className="text-2xl font-bold text-gray-900">
+                User Management
+              </h1>
+              <p className="mt-1 text-gray-600">
+                Manage candidates and recruiters
+              </p>
             </div>
             <button
               onClick={handleCreateNew}
@@ -218,7 +210,9 @@ export default function Dashboard() {
                         key={user._id}
                         onClick={() => handleEditUser(user)}
                         className={`hover:bg-gray-50 cursor-pointer transition-colors ${
-                          selectedUser?._id === user._id ? 'bg-blue-50 border-l-4 border-blue-500' : ''
+                          selectedUser?._id === user._id
+                            ? "bg-blue-50 border-l-4 border-blue-500"
+                            : ""
                         }`}
                       >
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -228,16 +222,16 @@ export default function Dashboard() {
                           {formatDate(user.createdAt)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600">
-                          {user.email || '-'}
+                          {user.email || "-"}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {user.companyEmail || '-'}
+                          {user.companyEmail || "-"}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {user.officeEmail || '-'}
+                          {user.officeEmail || "-"}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {user.cinPanGst || '-'}
+                          {user.cinPanGst || "-"}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           {user.agreeToTerms ? (
@@ -267,7 +261,7 @@ export default function Dashboard() {
                           {user._id.slice(-8)}...
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {user.remarks || '-'}
+                          {user.remarks || "-"}
                         </td>
                       </tr>
                     ))}
@@ -281,9 +275,9 @@ export default function Dashboard() {
           {pagination.pages > 1 && (
             <div className="mt-6 flex items-center justify-between">
               <div className="text-sm text-gray-700">
-                Showing {((pagination.page - 1) * pagination.limit) + 1} to{' '}
-                {Math.min(pagination.page * pagination.limit, pagination.total)} of{' '}
-                {pagination.total} results
+                Showing {(pagination.page - 1) * pagination.limit + 1} to{" "}
+                {Math.min(pagination.page * pagination.limit, pagination.total)}{" "}
+                of {pagination.total} results
               </div>
               <div className="flex space-x-2">
                 <button
@@ -293,7 +287,7 @@ export default function Dashboard() {
                 >
                   Previous
                 </button>
-                
+
                 {[...Array(pagination.pages)].map((_, index) => {
                   const page = index + 1;
                   return (
@@ -302,15 +296,15 @@ export default function Dashboard() {
                       onClick={() => handlePageChange(page)}
                       className={`px-3 py-2 text-sm rounded-md ${
                         page === pagination.page
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-white border border-gray-300 hover:bg-gray-50'
+                          ? "bg-blue-600 text-white"
+                          : "bg-white border border-gray-300 hover:bg-gray-50"
                       }`}
                     >
                       {page}
                     </button>
                   );
                 })}
-                
+
                 <button
                   onClick={() => handlePageChange(pagination.page + 1)}
                   disabled={pagination.page === pagination.pages}
@@ -335,7 +329,6 @@ export default function Dashboard() {
         user={selectedUser}
         isEditing={isEditing}
       />
-
     </Layout>
   );
 }
