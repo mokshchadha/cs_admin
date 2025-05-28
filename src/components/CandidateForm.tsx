@@ -208,6 +208,20 @@ export default function CandidateForm({
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
+                Name
+              </label>
+              <input
+                type="email"
+                name="companyEmail"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="User name"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Email
               </label>
               <input
