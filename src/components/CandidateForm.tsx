@@ -211,8 +211,8 @@ export default function CandidateForm({
                 Name
               </label>
               <input
-                type="email"
-                name="companyEmail"
+                type="text"
+                name="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="User name"
