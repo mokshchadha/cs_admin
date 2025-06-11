@@ -4,6 +4,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Layout from "../../components/Layout";
 import CandidateForm from "../../components/CandidateForm";
+import AssignCourseForm from "../../components/AssignCourseForm";
 import { DatabaseUser, User } from "../../lib/types";
 
 interface Pagination {
@@ -25,6 +26,7 @@ export default function Dashboard() {
   });
   const [search, setSearch] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isAssignCourseOpen, setIsAssignCourseOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<DatabaseUser | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [usersLoading, setUsersLoading] = useState(false);
@@ -92,6 +94,16 @@ export default function Dashboard() {
     setIsFormOpen(true);
   };
 
+  const handleAssignCourse = () => {
+    if (selectedUser) {
+      setIsAssignCourseOpen(true);
+    }
+  };
+
+  const handleRowClick = (user: DatabaseUser) => {
+    setSelectedUser(user);
+  };
+
   const handleFormSuccess = () => {
     fetchUsers();
   };
@@ -121,7 +133,7 @@ export default function Dashboard() {
     <Layout user={user || undefined}>
       <div
         className={`transition-all duration-300 ease-in-out ${
-          isFormOpen ? "mr-[400px]" : ""
+          isFormOpen || isAssignCourseOpen ? "mr-[400px]" : ""
         }`}
       >
         <div className="max-w-full mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -135,13 +147,43 @@ export default function Dashboard() {
                 Manage candidates and recruiters
               </p>
             </div>
-            <button
-              onClick={handleCreateNew}
-              className="mt-4 sm:mt-0 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium"
-            >
-              Add Users
-            </button>
+            <div className="mt-4 sm:mt-0 flex space-x-3">
+              <button
+                onClick={handleAssignCourse}
+                disabled={!selectedUser}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  selectedUser
+                    ? "bg-green-600 hover:bg-green-700 text-white"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
+              >
+                Manage Courses
+              </button>
+              <button
+                onClick={handleCreateNew}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium"
+              >
+                Add Users
+              </button>
+            </div>
           </div>
+
+          {/* Selected User Info */}
+          {selectedUser && (
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+              <p className="text-sm text-blue-800">
+                <strong>Selected:</strong> {selectedUser.name || "No Name"} (
+                {selectedUser.phoneNumber})
+                {selectedUser.assignedCourses &&
+                  selectedUser.assignedCourses.length > 0 && (
+                    <span className="ml-2">
+                      - <strong>Courses:</strong>{" "}
+                      {selectedUser.assignedCourses.length} subscribed
+                    </span>
+                  )}
+              </p>
+            </div>
+          )}
 
           {/* Search */}
           <div className="mb-6">
@@ -211,7 +253,8 @@ export default function Dashboard() {
                     {users.map((user) => (
                       <tr
                         key={user._id}
-                        onClick={() => handleEditUser(user)}
+                        onClick={() => handleRowClick(user)}
+                        onDoubleClick={() => handleEditUser(user)}
                         className={`hover:bg-gray-50 cursor-pointer transition-colors ${
                           selectedUser?._id === user._id
                             ? "bg-blue-50 border-l-4 border-blue-500"
@@ -334,6 +377,16 @@ export default function Dashboard() {
         onSuccess={handleFormSuccess}
         user={selectedUser}
         isEditing={isEditing}
+      />
+
+      {/* Assign Course Form Slide Panel */}
+      <AssignCourseForm
+        isOpen={isAssignCourseOpen}
+        onClose={() => {
+          setIsAssignCourseOpen(false);
+        }}
+        onSuccess={handleFormSuccess}
+        user={selectedUser}
       />
     </Layout>
   );

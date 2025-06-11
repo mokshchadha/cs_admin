@@ -1,4 +1,3 @@
-// src/lib/models/User.ts
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
@@ -50,8 +49,32 @@ const userSchema = new mongoose.Schema(
     remarks: {
       type: String,
       trim: true,
-      default: '',
+      default: "",
     },
+    // New fields for course assignments (multiple courses support)
+    assignedCourses: [
+      {
+        university: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        course: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        specialization: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        assignedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
     forgotPasswordToken: String,
     forgotPasswordTokenExpiry: Date,
     verifyToken: String,

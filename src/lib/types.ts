@@ -1,3 +1,4 @@
+// src/lib/types.ts
 export interface User {
   username: string;
 }
@@ -17,6 +18,13 @@ export interface ApiResponse {
   user?: User;
 }
 
+export interface CourseAssignment {
+  university: string;
+  course: string;
+  specialization: string;
+  assignedAt: string;
+}
+
 export interface DatabaseUser {
   _id: string;
   name?: string;
@@ -29,6 +37,8 @@ export interface DatabaseUser {
   isRecruiter: boolean;
   isVerified: boolean;
   remarks?: string;
+  // New course assignments field (multiple courses support)
+  assignedCourses?: CourseAssignment[];
   createdAt: string;
   updatedAt: string;
 }
