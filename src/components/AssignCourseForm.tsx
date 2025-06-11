@@ -48,7 +48,9 @@ export default function AssignCourseForm({
   useEffect(() => {
     if (selectedUniversity) {
       const courses =
-        coursesData[selectedUniversity as keyof typeof coursesData] || [];
+        (coursesData[
+          selectedUniversity as keyof typeof coursesData
+        ] as Course[]) || [];
       setAvailableCourses(courses);
       setSelectedCourse("");
       setSelectedSpecialization("");
