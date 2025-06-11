@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/components/AssignCourseForm.tsx
 "use client";
 
@@ -35,7 +36,6 @@ export default function AssignCourseForm({
     []
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [isRemoving, setIsRemoving] = useState<string | null>(null);
   const [error, setError] = useState("");
 
   const universityOptions = Object.entries(universities).map(
@@ -93,6 +93,13 @@ export default function AssignCourseForm({
       return;
     }
 
+    // Validate user data for external API
+    if (!user.name || !user.email) {
+      setError("User must have name and email to assign courses");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const response = await fetch(`/api/users/${user._id}/assign-course`, {
         method: "POST",
@@ -111,6 +118,7 @@ export default function AssignCourseForm({
       if (response.ok) {
         // Update local state with new course
         setAssignedCourses(data.user.assignedCourses || []);
+
         // Reset form fields
         setSelectedUniversity("");
         setSelectedCourse("");
@@ -126,34 +134,6 @@ export default function AssignCourseForm({
       setError("An error occurred. Please try again.");
     }
     setIsLoading(false);
-  };
-
-  const handleRemoveCourse = async (courseId: string) => {
-    if (!user) return;
-
-    setIsRemoving(courseId);
-    try {
-      const response = await fetch(`/api/users/${user._id}/assign-course`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ courseId }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setAssignedCourses(data.user.assignedCourses || []);
-        onSuccess();
-      } else {
-        setError(data.message || "An error occurred while removing course");
-      }
-    } catch (error) {
-      console.error("Course removal error:", error);
-      setError("An error occurred. Please try again.");
-    }
-    setIsRemoving(null);
   };
 
   const uniqueCourses = [
@@ -217,6 +197,11 @@ export default function AssignCourseForm({
                 {user.email || "No Email"}
               </p>
               <p className="text-sm text-gray-600">{user.phoneNumber}</p>
+              {(!user.name || !user.email) && (
+                <p className="text-sm text-red-600 mt-2">
+                  ⚠ Name and email are required for course assignment
+                </p>
+              )}
             </div>
           )}
 
@@ -227,53 +212,50 @@ export default function AssignCourseForm({
                 Current Subscriptions ({assignedCourses.length})
               </h3>
               <div className="space-y-3 max-h-64 overflow-y-auto">
-                {assignedCourses.map(
-                  (courseAssignment: CourseAssignment & any, index) => (
-                    <div
-                      key={courseAssignment._id || index}
-                      className="flex items-center justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg"
-                    >
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-blue-900 truncate">
+                {assignedCourses.map((courseAssignment: any, index) => (
+                  <div
+                    key={courseAssignment._id || index}
+                    className="p-3 bg-green-50 border border-green-200 rounded-lg"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center space-x-2">
+                        <div className="font-medium text-green-900 truncate">
                           {courseAssignment.course}
                         </div>
-                        <div className="text-sm text-blue-700 truncate">
-                          {courseAssignment.specialization}
-                        </div>
-                        <div className="text-xs text-blue-600 truncate">
-                          {getUniversityName(courseAssignment.university)}
-                        </div>
-                        <div className="text-xs text-blue-500">
-                          Assigned: {formatDate(courseAssignment.assignedAt)}
-                        </div>
+                        <span
+                          className="text-green-600"
+                          title="Successfully assigned"
+                        >
+                          ✓
+                        </span>
                       </div>
-                      <button
-                        onClick={() => handleRemoveCourse(courseAssignment._id)}
-                        disabled={isRemoving === courseAssignment._id}
-                        className="ml-2 text-red-600 hover:text-red-800 p-1 disabled:opacity-50"
-                        title="Remove course"
-                      >
-                        {isRemoving === courseAssignment._id ? (
-                          <div className="animate-spin w-4 h-4 border-2 border-red-600 border-t-transparent rounded-full"></div>
-                        ) : (
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                            />
-                          </svg>
-                        )}
-                      </button>
+                      <div className="text-sm text-green-700 truncate">
+                        {courseAssignment.specialization}
+                      </div>
+                      <div className="text-xs text-green-600 truncate">
+                        {getUniversityName(courseAssignment.university)}
+                      </div>
+                      <div className="text-xs text-green-500">
+                        Assigned: {formatDate(courseAssignment.assignedAt)}
+                      </div>
+                      <div className="text-xs text-green-600 font-mono">
+                        Student ID: {courseAssignment.studentId}
+                      </div>
+                      <div className="text-xs text-gray-600">
+                        Status:{" "}
+                        {courseAssignment.externalApiStatus
+                          ? "Success"
+                          : "Failed"}
+                        <span className="ml-2">
+                          | Exists: {courseAssignment.externalApiExists}
+                        </span>
+                      </div>
+                      <div className="text-xs text-blue-600">
+                        {courseAssignment.externalApiMessage}
+                      </div>
                     </div>
-                  )
-                )}
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -364,17 +346,19 @@ export default function AssignCourseForm({
                   isLoading ||
                   !selectedUniversity ||
                   !selectedCourse ||
-                  !selectedSpecialization
+                  !selectedSpecialization ||
+                  !user?.name ||
+                  !user?.email
                 }
                 className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed transition-colors text-sm font-medium"
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center">
                     <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></div>
-                    Adding Course...
+                    Adding Course & Generating Student ID...
                   </div>
                 ) : (
-                  "Add Course"
+                  "Add Course & Generate Student ID"
                 )}
               </button>
             </form>
@@ -400,7 +384,7 @@ export default function AssignCourseForm({
                 No courses assigned
               </h3>
               <p className="mt-1 text-sm text-gray-500">
-                This user hasn't been assigned any courses yet.
+                This user hasn&apos;t been assigned any courses yet.
               </p>
             </div>
           )}

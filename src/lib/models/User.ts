@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       default: "",
     },
-    // New fields for course assignments (multiple courses support)
+    // Updated fields for course assignments with student_id
     assignedCourses: [
       {
         university: {
@@ -72,6 +72,29 @@ const userSchema = new mongoose.Schema(
         assignedAt: {
           type: Date,
           default: Date.now,
+        },
+        // Store the student ID from external API
+        studentId: {
+          type: String,
+          required: true, // Make it required
+          trim: true,
+        },
+        // Store the status from external API response
+        externalApiStatus: {
+          type: Boolean,
+          required: true, // Make it required
+          default: false,
+        },
+        // Store the exists value from external API response - make it optional
+        externalApiExists: {
+          type: Number,
+          default: null,
+        },
+        // Store the message from external API response
+        externalApiMessage: {
+          type: String,
+          required: true, // Make it required
+          trim: true,
         },
       },
     ],

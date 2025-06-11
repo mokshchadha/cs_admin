@@ -19,10 +19,15 @@ export interface ApiResponse {
 }
 
 export interface CourseAssignment {
+  _id?: string;
   university: string;
   course: string;
   specialization: string;
   assignedAt: string;
+  studentId?: string; // Make optional for backward compatibility
+  externalApiStatus?: boolean; // Make optional for backward compatibility
+  externalApiExists?: number; // Make optional for backward compatibility
+  externalApiMessage?: string; // Make optional for backward compatibility
 }
 
 export interface DatabaseUser {
@@ -41,4 +46,24 @@ export interface DatabaseUser {
   assignedCourses?: CourseAssignment[];
   createdAt: string;
   updatedAt: string;
+}
+
+export interface ExternalApiResponse {
+  status: boolean;
+  student_id: string;
+  message: string;
+  exists: number;
+}
+
+export interface ExternalApiRequest {
+  full_name: string;
+  email: string;
+  mobile: string;
+  dob: string;
+  interested_university: string;
+  course: string;
+  specialization: string;
+  source: string;
+  sub_source: string;
+  lead_owner: string;
 }
