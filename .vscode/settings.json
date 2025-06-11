@@ -1,3 +1,15 @@
 {
-    "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "cSpell.words": [
+    "BCOM",
+    "CUIDOL",
+    "CUOL",
+    "Galgotias",
+    "Imarticus",
+    "LPUODL",
+    "MAHE",
+    "NMIMS",
+    "Sharda",
+    "UPES"
+  ]
 }
