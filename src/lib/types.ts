@@ -38,6 +38,7 @@ export interface DatabaseUser {
   phoneNumber: string;
   officeEmail?: string;
   cinPanGst?: string;
+  dateOfBirth?: string; // Add dateOfBirth field
   agreeToTerms: boolean;
   isRecruiter: boolean;
   isVerified: boolean;

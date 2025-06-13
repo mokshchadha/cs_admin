@@ -28,6 +28,7 @@ export default function CandidateForm({
     phoneNumber: "",
     officeEmail: "",
     cinPanGst: "",
+    dateOfBirth: "",
     password: "",
     agreeToTerms: false,
     isRecruiter: false,
@@ -47,6 +48,9 @@ export default function CandidateForm({
         phoneNumber: user.phoneNumber || "",
         officeEmail: user.officeEmail || "",
         cinPanGst: user.cinPanGst || "",
+        dateOfBirth: user.dateOfBirth
+          ? new Date(user.dateOfBirth).toISOString().split("T")[0]
+          : "",
         password: "",
         agreeToTerms: user.agreeToTerms || false,
         isRecruiter: user.isRecruiter || false,
@@ -61,6 +65,7 @@ export default function CandidateForm({
         phoneNumber: "",
         officeEmail: "",
         cinPanGst: "",
+        dateOfBirth: "",
         password: "",
         agreeToTerms: false,
         isRecruiter: false,
@@ -216,6 +221,19 @@ export default function CandidateForm({
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="User name"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Date of Birth
+              </label>
+              <input
+                type="date"
+                name="dateOfBirth"
+                value={formData.dateOfBirth}
+                onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
               />
             </div>

@@ -88,10 +88,13 @@ export default function Dashboard() {
     setIsFormOpen(true);
   };
 
-  const handleEditUser = (user: DatabaseUser) => {
-    setSelectedUser(user);
-    setIsEditing(true);
-    setIsFormOpen(true);
+  const handleEditUser = (user?: DatabaseUser) => {
+    const userToEdit = user || selectedUser;
+    if (userToEdit) {
+      setSelectedUser(userToEdit);
+      setIsEditing(true);
+      setIsFormOpen(true);
+    }
   };
 
   const handleAssignCourse = () => {
@@ -115,6 +118,15 @@ export default function Dashboard() {
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
+    });
+  };
+
+  const formatDateOfBirth = (dateString?: string) => {
+    if (!dateString) return "-";
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   };
 
@@ -148,6 +160,17 @@ export default function Dashboard() {
               </p>
             </div>
             <div className="mt-4 sm:mt-0 flex space-x-3">
+              <button
+                onClick={() => handleEditUser()}
+                disabled={!selectedUser}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  selectedUser
+                    ? "bg-orange-600 hover:bg-orange-700 text-white"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
+              >
+                Edit User
+              </button>
               <button
                 onClick={handleAssignCourse}
                 disabled={!selectedUser}
@@ -215,6 +238,9 @@ export default function Dashboard() {
                         Phone Number
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Date of Birth
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Created At
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -266,6 +292,9 @@ export default function Dashboard() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {user.phoneNumber}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {formatDateOfBirth(user.dateOfBirth)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {formatDate(user.createdAt)}

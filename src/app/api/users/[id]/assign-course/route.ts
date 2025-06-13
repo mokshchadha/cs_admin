@@ -78,18 +78,25 @@ export async function POST(
       );
     }
 
+    if (!existingUser.dateOfBirth) {
+      return NextResponse.json(
+        { message: "Date of Birth not found" },
+        { status: 400 }
+      );
+    }
+
     // Prepare external API request
     const externalApiData: ExternalApiRequest = {
       full_name: existingUser.name,
       email: existingUser.email,
       mobile: formatPhoneNumber(existingUser.phoneNumber),
-      dob: formatDateOfBirth(existingUser.createdAt.toString()),
+      dob: formatDateOfBirth(existingUser.dateOfBirth?.toString()),
       interested_university: university,
       course: course,
       specialization: specialization,
       source: "CV Partner",
       sub_source: "API",
-      lead_owner: "1369",
+      lead_owner: "3073", //TOOD: This is our partner code move to env
     };
 
     const externalApiResponse = await createStudentId(externalApiData);
