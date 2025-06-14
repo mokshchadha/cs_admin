@@ -1,5 +1,5 @@
 const variable = {
-  // CUIDOL: [],
+  CUIDOL: [],
   CUOL: [
     {
       course: "BA",
@@ -723,8 +723,8 @@ const variable = {
       },
     ],
   },
-  // HU: [],
-  // MR: [],
+  HU: [],
+  MR: [],
   DPU: [
     {
       course: "BBA",
@@ -973,12 +973,12 @@ const variable = {
       specialization: "Human Resource Management",
     },
   ],
-  // "LV-Tech": [],
-  // "SVU-Tech": [],
-  // "SVU-CMS": [],
-  // "SVU-Agriculture": [],
-  // SDU: [],
-  // UpGrad: [],
+  "LV-Tech": [],
+  "SVU-Tech": [],
+  "SVU-CMS": [],
+  "SVU-Agriculture": [],
+  SDU: [],
+  UpGrad: [],
   VU: [
     {
       course: "BBA",
@@ -1079,8 +1079,8 @@ const variable = {
       specialization: "General",
     },
   ],
-  // LPUODL: [],
-  // MMU: [],
+  LPUODL: [],
+  MMU: [],
   GLA: [
     {
       course: "B.Com",
@@ -1167,8 +1167,8 @@ const variable = {
       specialization: "General",
     },
   ],
-  // DMIHER: [],
-  // Edureka: [],
+  DMIHER: [],
+  Edureka: [],
   SCDOE: [
     {
       course: "B.Com",
@@ -1275,9 +1275,9 @@ const variable = {
       specialization: "General (PAP)",
     },
   ],
-  // Nulearn: [],
-  // MITSDE: [],
-  // VIT: [],
+  Nulearn: [],
+  MITSDE: [],
+  VIT: [],
   SMU: [
     {
       course: "B.Com",
@@ -1422,8 +1422,8 @@ const variable = {
       specialization: "Finance and Systems",
     },
   ],
-  // "MUOL-Retail": [],
-  // Zell: [],
+  "MUOL-Retail": [],
+  Zell: [],
   Andhra: [
     {
       course: "MA",
@@ -1470,7 +1470,7 @@ const variable = {
       specialization: "General",
     },
   ],
-  // DYPATIL: [],
+  DYPATIL: [],
   KUK: [
     {
       course: "B.Com",
@@ -1513,9 +1513,9 @@ const variable = {
       specialization: "General",
     },
   ],
-  // SGVU: [],
-  // BDU: [],
-  // MGR: [],
+  SGVU: [],
+  BDU: [],
+  MGR: [],
   VGU: [
     {
       course: "BA",
@@ -1728,7 +1728,7 @@ const variable = {
       specialization: "Business Analytics",
     },
   ],
-  // Imarticus: [],
+  Imarticus: [],
   Sharda: [
     {
       course: "BBA",
@@ -1763,8 +1763,8 @@ const variable = {
       specialization: "Computer Science and Information Technology",
     },
   ],
-  // "SU-Tech": [],
-  // Veranda: [],
+  "SU-Tech": [],
+  Veranda: [],
   MZU: [
     {
       course: "B.Com - UG",
@@ -2079,7 +2079,7 @@ const variable = {
       specialization: "General",
     },
   ],
-  // Coursera: [],
+  Coursera: [],
   TimesPro: [
     {
       course: "IIM Amritsar - EMBA",
@@ -2442,7 +2442,7 @@ const variable = {
       specialization: "International Business",
     },
   ],
-  // IMI: [],
+  IMI: [],
   SRM: [
     {
       course: "MBA",
