@@ -2,7 +2,7 @@
 // src/components/AssignCourseForm.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import universities from "../lib/universities.json";
 import coursesData from "../lib/courses";
 import { DatabaseUser, CourseAssignment } from "../lib/types";
@@ -26,6 +26,8 @@ export default function AssignCourseForm({
   user,
 }: AssignCourseFormProps) {
   const [selectedUniversity, setSelectedUniversity] = useState("");
+  const [universitySearchText, setUniversitySearchText] = useState("");
+  const [showUniversityDropdown, setShowUniversityDropdown] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
   const [availableCourses, setAvailableCourses] = useState<Course[]>([]);
@@ -38,12 +40,43 @@ export default function AssignCourseForm({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const universityInputRef = useRef<HTMLInputElement>(null);
+  const universityDropdownRef = useRef<HTMLDivElement>(null);
+
   const universityOptions = Object.entries(universities).map(
     ([code, data]) => ({
       code,
       name: data.name,
     })
   );
+
+  // Filter universities based on search text
+  const filteredUniversities = universityOptions.filter(
+    (university) =>
+      university.name
+        .toLowerCase()
+        .includes(universitySearchText.toLowerCase()) ||
+      university.code.toLowerCase().includes(universitySearchText.toLowerCase())
+  );
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        universityDropdownRef.current &&
+        !universityDropdownRef.current.contains(event.target as Node) &&
+        universityInputRef.current &&
+        !universityInputRef.current.contains(event.target as Node)
+      ) {
+        setShowUniversityDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (selectedUniversity) {
@@ -75,6 +108,8 @@ export default function AssignCourseForm({
     } else if (!isOpen) {
       // Reset form when closing
       setSelectedUniversity("");
+      setUniversitySearchText("");
+      setShowUniversityDropdown(false);
       setSelectedCourse("");
       setSelectedSpecialization("");
       setAvailableCourses([]);
@@ -83,6 +118,28 @@ export default function AssignCourseForm({
       setError("");
     }
   }, [user, isOpen]);
+
+  const handleUniversitySelect = (
+    universityCode: string,
+    universityName: string
+  ) => {
+    setSelectedUniversity(universityCode);
+    setUniversitySearchText(universityName);
+    setShowUniversityDropdown(false);
+  };
+
+  const handleUniversityInputChange = (value: string) => {
+    setUniversitySearchText(value);
+    setShowUniversityDropdown(true);
+
+    // Clear selection if text doesn't match any university
+    const exactMatch = universityOptions.find(
+      (uni) => uni.name.toLowerCase() === value.toLowerCase()
+    );
+    if (!exactMatch) {
+      setSelectedUniversity("");
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -123,6 +180,7 @@ export default function AssignCourseForm({
 
         // Reset form fields
         setSelectedUniversity("");
+        setUniversitySearchText("");
         setSelectedCourse("");
         setSelectedSpecialization("");
         setAvailableCourses([]);
@@ -275,23 +333,55 @@ export default function AssignCourseForm({
                 </div>
               )}
 
-              <div>
+              {/* Searchable University Dropdown */}
+              <div className="relative">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   University *
                 </label>
-                <select
-                  value={selectedUniversity}
-                  onChange={(e) => setSelectedUniversity(e.target.value)}
-                  required
+                <input
+                  ref={universityInputRef}
+                  type="text"
+                  value={universitySearchText}
+                  onChange={(e) => handleUniversityInputChange(e.target.value)}
+                  onFocus={() => setShowUniversityDropdown(true)}
+                  placeholder="Search for a university..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                >
-                  <option value="">Select University</option>
-                  {universityOptions.map((university) => (
-                    <option key={university.code} value={university.code}>
-                      {university.name}
-                    </option>
-                  ))}
-                </select>
+                  required
+                />
+
+                {showUniversityDropdown && (
+                  <div
+                    ref={universityDropdownRef}
+                    className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto"
+                  >
+                    {filteredUniversities.length > 0 ? (
+                      filteredUniversities.map((university) => (
+                        <div
+                          key={university.code}
+                          onClick={() =>
+                            handleUniversitySelect(
+                              university.code,
+                              university.name
+                            )
+                          }
+                          className="px-3 py-2 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+                        >
+                          <div className="font-medium text-gray-900 text-sm">
+                            {university.name}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {university.code}
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="px-3 py-2 text-sm text-gray-500">
+                        No universities found matching &quot;
+                        {universitySearchText}&quot;
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div>
