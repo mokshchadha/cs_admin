@@ -1470,7 +1470,144 @@ const variable = {
       specialization: "General",
     },
   ],
-  DYPATIL: [],
+  DYPATIL: [
+    {
+      course: "BBA",
+      specialization: "Hospital Management",
+    },
+    {
+      course: "BBA",
+      specialization: "Retail Operations",
+    },
+    {
+      course: "BBA",
+      specialization: "Human Resources",
+    },
+    {
+      course: "BBA",
+      specialization: "Event Management",
+    },
+    {
+      course: "BBA",
+      specialization: "Marketing Management",
+    },
+    {
+      course: "BBA",
+      specialization: "Logistics & Supply Chain",
+    },
+    {
+      course: "BBA",
+      specialization: "General",
+    },
+    {
+      course: "BBA",
+      specialization: "Investment Banking",
+    },
+    {
+      course: "MBA",
+      specialization: "International Business",
+    },
+    {
+      course: "MBA",
+      specialization: "Sales And Marketing",
+    },
+    {
+      course: "MBA",
+      specialization: "Human Resource Management",
+    },
+    {
+      course: "MBA",
+      specialization: "Hospital And Healthcare Management",
+    },
+    {
+      course: "MBA",
+      specialization: "Finance",
+    },
+    {
+      course: "MBA",
+      specialization: "Retail Management",
+    },
+    {
+      course: "MBA",
+      specialization: "Logistics & Supply Chain Management",
+    },
+    {
+      course: "MBA",
+      specialization: "Entrepreneurship Management",
+    },
+    {
+      course: "MBA",
+      specialization: "Event Management",
+    },
+    {
+      course: "MBA",
+      specialization: "Digital Marketing",
+    },
+    {
+      course: "MBA",
+      specialization: "Data Science And Business Analytics",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Finance Management",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Logistics & Supply Chain Management",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Marketing Management",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Human Resource Management",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Healthcare and Hospital Management",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Operation & Product Management",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Hospital And Healthcare Management",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Digital Marketing",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Entrepreneurship Management",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Event Management",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Finance",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "International Business",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Logistic & Supply Chain Management",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Retail Management",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Sales & Marketing",
+    },
+  ],
   KUK: [
     {
       course: "B.Com",
