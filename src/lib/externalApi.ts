@@ -48,10 +48,11 @@ export function formatPhoneNumber(phoneNumber: string): string {
 }
 
 export function formatDateOfBirth(createdAt: string): string {
-  // Use created date as DOB or generate a default one
-  // You might want to adjust this logic based on your requirements
   const date = new Date(createdAt);
-  // Set a default age of 25 years for DOB
-  date.setFullYear(date.getFullYear() - 25);
-  return date.toISOString().split("T")[0];
+
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
 }
