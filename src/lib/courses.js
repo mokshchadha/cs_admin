@@ -535,194 +535,192 @@ const variable = {
       specialization: "Computer Science & IT",
     },
   ],
-  AU: {
-    courses: [
-      {
-        course: "B.COM",
-        specialization: "International Finance & Accounting",
-      },
-      {
-        course: "B.COM",
-        specialization: "B.Com (Hons)",
-      },
-      {
-        course: "B.COM",
-        specialization: "General",
-      },
-      {
-        course: "B.COM",
-        specialization: "Vernacular",
-      },
-      {
-        course: "B.COM",
-        specialization: "ACCA",
-      },
-      {
-        course: "B.Com + MBA",
-        specialization: "B.Com + MBA",
-      },
-      {
-        course: "BA",
-        specialization: "General",
-      },
-      {
-        course: "BA",
-        specialization: "JMC",
-      },
-      {
-        course: "BA",
-        specialization: "Tamil",
-      },
-      {
-        course: "BA",
-        specialization: "Malayalam",
-      },
-      {
-        course: "BA",
-        specialization: "Telugu",
-      },
-      {
-        course: "BA",
-        specialization: "Hindi",
-      },
-      {
-        course: "BA",
-        specialization: "Kannada",
-      },
-      {
-        course: "BBA",
-        specialization: "Data Analytics",
-      },
-      {
-        course: "BBA",
-        specialization: "General",
-      },
-      {
-        course: "BBA + MBA",
-        specialization: "BBA + MBA",
-      },
-      {
-        course: "BCA",
-        specialization: "Data Analytics",
-      },
-      {
-        course: "BCA",
-        specialization: "Cloud and Security",
-      },
-      {
-        course: "BCA",
-        specialization: "Data Engineering",
-      },
-      {
-        course: "BCA",
-        specialization: "General",
-      },
-      {
-        course: "BCA",
-        specialization: "Software Engineering",
-      },
-      {
-        course: "BCA + MCA",
-        specialization: "BCA + MCA",
-      },
-      {
-        course: "M.COM",
-        specialization: "Financial Management",
-      },
-      {
-        course: "M.COM",
-        specialization: "Financial Technology",
-      },
-      {
-        course: "M.SC",
-        specialization: "Data Science",
-      },
-      {
-        course: "MA",
-        specialization: "Psychology",
-      },
-      {
-        course: "MA",
-        specialization: "Public Policy & Governance",
-      },
-      {
-        course: "MA",
-        specialization: "JMC",
-      },
-      {
-        course: "MBA",
-        specialization: "Digital Entrepreneurship",
-      },
-      {
-        course: "MBA",
-        specialization: "Human Resource Analytics",
-      },
-      {
-        course: "MBA",
-        specialization: "Digital Marketing Management",
-      },
-      {
-        course: "MBA",
-        specialization: "General",
-      },
-      {
-        course: "MBA",
-        specialization: "General Management",
-      },
-      {
-        course: "MBA",
-        specialization: "International Finance",
-      },
-      {
-        course: "MBA",
-        specialization: "Business Analytics",
-      },
-      {
-        course: "MBA",
-        specialization: "Data Science",
-      },
-      {
-        course: "MBA",
-        specialization: "Dual Specialization",
-      },
-      {
-        course: "MBA Executive",
-        specialization: "Campus Immersion",
-      },
-      {
-        course: "MBA Executive",
-        specialization: "Campus Immersion (International)",
-      },
-      {
-        course: "MCA",
-        specialization: "ML & AI (TCS Ion)",
-      },
-      {
-        course: "MCA",
-        specialization: "General",
-      },
-      {
-        course: "MCA",
-        specialization: "Cyber Security",
-      },
-      {
-        course: "MCA",
-        specialization: "Machine Learning and Artificial Intelligence",
-      },
-      {
-        course: "MCA",
-        specialization: "Software Engineering",
-      },
-      {
-        course: "MCA",
-        specialization: "Blockchain Technology and Management",
-      },
-      {
-        course: "MCA",
-        specialization: "AR & VR (TSC Ion)",
-      },
-    ],
-  },
+  AU: [
+    {
+      course: "B.COM",
+      specialization: "International Finance & Accounting",
+    },
+    {
+      course: "B.COM",
+      specialization: "B.Com (Hons)",
+    },
+    {
+      course: "B.COM",
+      specialization: "General",
+    },
+    {
+      course: "B.COM",
+      specialization: "Vernacular",
+    },
+    {
+      course: "B.COM",
+      specialization: "ACCA",
+    },
+    {
+      course: "B.Com + MBA",
+      specialization: "B.Com + MBA",
+    },
+    {
+      course: "BA",
+      specialization: "General",
+    },
+    {
+      course: "BA",
+      specialization: "JMC",
+    },
+    {
+      course: "BA",
+      specialization: "Tamil",
+    },
+    {
+      course: "BA",
+      specialization: "Malayalam",
+    },
+    {
+      course: "BA",
+      specialization: "Telugu",
+    },
+    {
+      course: "BA",
+      specialization: "Hindi",
+    },
+    {
+      course: "BA",
+      specialization: "Kannada",
+    },
+    {
+      course: "BBA",
+      specialization: "Data Analytics",
+    },
+    {
+      course: "BBA",
+      specialization: "General",
+    },
+    {
+      course: "BBA + MBA",
+      specialization: "BBA + MBA",
+    },
+    {
+      course: "BCA",
+      specialization: "Data Analytics",
+    },
+    {
+      course: "BCA",
+      specialization: "Cloud and Security",
+    },
+    {
+      course: "BCA",
+      specialization: "Data Engineering",
+    },
+    {
+      course: "BCA",
+      specialization: "General",
+    },
+    {
+      course: "BCA",
+      specialization: "Software Engineering",
+    },
+    {
+      course: "BCA + MCA",
+      specialization: "BCA + MCA",
+    },
+    {
+      course: "M.COM",
+      specialization: "Financial Management",
+    },
+    {
+      course: "M.COM",
+      specialization: "Financial Technology",
+    },
+    {
+      course: "M.SC",
+      specialization: "Data Science",
+    },
+    {
+      course: "MA",
+      specialization: "Psychology",
+    },
+    {
+      course: "MA",
+      specialization: "Public Policy & Governance",
+    },
+    {
+      course: "MA",
+      specialization: "JMC",
+    },
+    {
+      course: "MBA",
+      specialization: "Digital Entrepreneurship",
+    },
+    {
+      course: "MBA",
+      specialization: "Human Resource Analytics",
+    },
+    {
+      course: "MBA",
+      specialization: "Digital Marketing Management",
+    },
+    {
+      course: "MBA",
+      specialization: "General",
+    },
+    {
+      course: "MBA",
+      specialization: "General Management",
+    },
+    {
+      course: "MBA",
+      specialization: "International Finance",
+    },
+    {
+      course: "MBA",
+      specialization: "Business Analytics",
+    },
+    {
+      course: "MBA",
+      specialization: "Data Science",
+    },
+    {
+      course: "MBA",
+      specialization: "Dual Specialization",
+    },
+    {
+      course: "MBA Executive",
+      specialization: "Campus Immersion",
+    },
+    {
+      course: "MBA Executive",
+      specialization: "Campus Immersion (International)",
+    },
+    {
+      course: "MCA",
+      specialization: "ML & AI (TCS Ion)",
+    },
+    {
+      course: "MCA",
+      specialization: "General",
+    },
+    {
+      course: "MCA",
+      specialization: "Cyber Security",
+    },
+    {
+      course: "MCA",
+      specialization: "Machine Learning and Artificial Intelligence",
+    },
+    {
+      course: "MCA",
+      specialization: "Software Engineering",
+    },
+    {
+      course: "MCA",
+      specialization: "Blockchain Technology and Management",
+    },
+    {
+      course: "MCA",
+      specialization: "AR & VR (TSC Ion)",
+    },
+  ],
   HU: [],
   MR: [],
   DPU: [
