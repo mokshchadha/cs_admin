@@ -1,3 +1,4 @@
+// src/lib/models/User.ts
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
@@ -99,6 +100,58 @@ const userSchema = new mongoose.Schema(
           type: String,
           required: true, // Make it required
           trim: true,
+        },
+      },
+    ],
+    // New field for internship assignments
+    assignedInternships: [
+      {
+        companyId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Company",
+          required: true,
+        },
+        companyName: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        internshipId: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+        },
+        designation: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        duration: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        stipend: {
+          type: Number,
+          required: true,
+        },
+        location: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        details: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        assignedAt: {
+          type: Date,
+          default: Date.now,
+        },
+        status: {
+          type: String,
+          enum: ["assigned", "started", "completed", "cancelled"],
+          default: "assigned",
         },
       },
     ],

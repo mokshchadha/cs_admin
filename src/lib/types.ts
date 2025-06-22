@@ -30,6 +30,40 @@ export interface CourseAssignment {
   externalApiMessage?: string; // Make optional for backward compatibility
 }
 
+export interface Internship {
+  _id: string;
+  designation: string;
+  duration: string;
+  isActive: boolean;
+  stipend: number;
+  location: string;
+  details: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Company {
+  _id: string;
+  name: string;
+  internships: Internship[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface InternshipAssignment {
+  _id?: string;
+  companyId: string;
+  companyName: string;
+  internshipId: string;
+  designation: string;
+  duration: string;
+  stipend: number;
+  location: string;
+  details: string;
+  assignedAt: string;
+  status: "assigned" | "started" | "completed" | "cancelled";
+}
+
 export interface DatabaseUser {
   _id: string;
   name?: string;
@@ -45,6 +79,8 @@ export interface DatabaseUser {
   remarks?: string;
   // New course assignments field (multiple courses support)
   assignedCourses?: CourseAssignment[];
+  // New internship assignments field
+  assignedInternships?: InternshipAssignment[];
   createdAt: string;
   updatedAt: string;
 }
