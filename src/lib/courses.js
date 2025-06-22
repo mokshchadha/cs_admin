@@ -726,31 +726,19 @@ const variable = {
   DPU: [
     {
       course: "BBA",
-      specialization: "Retail Management",
+      specialization: "Hospital Management",
     },
     {
       course: "BBA",
-      specialization: "E-Commerce Management",
+      specialization: "Retail Operations",
     },
     {
       course: "BBA",
-      specialization: "Banking Financial Services and Insurance Management",
+      specialization: "Human Resources",
     },
     {
       course: "BBA",
-      specialization: "International Business Management",
-    },
-    {
-      course: "BBA",
-      specialization: "IT and Systems Management",
-    },
-    {
-      course: "BBA",
-      specialization: "Finance Management",
-    },
-    {
-      course: "BBA",
-      specialization: "Human Resource Management",
+      specialization: "Event Management",
     },
     {
       course: "BBA",
@@ -758,79 +746,119 @@ const variable = {
     },
     {
       course: "BBA",
+      specialization: "Logistics & Supply Chain",
+    },
+    {
+      course: "BBA",
       specialization: "General",
     },
     {
-      course: "Certificate",
-      specialization: "Hospital & Health Care Management",
+      course: "BBA",
+      specialization: "Investment Banking",
     },
     {
-      course: "Certificate",
+      course: "MBA",
+      specialization: "International Business",
+    },
+    {
+      course: "MBA",
+      specialization: "Sales And Marketing",
+    },
+    {
+      course: "MBA",
+      specialization: "Human Resource Management",
+    },
+    {
+      course: "MBA",
+      specialization: "Hospital And Healthcare Management",
+    },
+    {
+      course: "MBA",
+      specialization: "Finance",
+    },
+    {
+      course: "MBA",
+      specialization: "Retail Management",
+    },
+    {
+      course: "MBA",
+      specialization: "Logistics & Supply Chain Management",
+    },
+    {
+      course: "MBA",
+      specialization: "Entrepreneurship Management",
+    },
+    {
+      course: "MBA",
+      specialization: "Event Management",
+    },
+    {
+      course: "MBA",
       specialization: "Digital Marketing",
     },
     {
       course: "MBA",
-      specialization: "Marketing Management",
+      specialization: "Data Science And Business Analytics",
     },
     {
-      course: "MBA",
-      specialization: "Human Resource Management",
-    },
-    {
-      course: "MBA",
+      course: "MBA Plus",
       specialization: "Finance Management",
     },
     {
-      course: "MBA",
-      specialization: "IT Management",
+      course: "MBA Plus",
+      specialization: "Logistics & Supply Chain Management",
     },
     {
-      course: "MBA",
-      specialization: "Project Management",
+      course: "MBA Plus",
+      specialization: "Marketing Management",
     },
     {
-      course: "MBA",
-      specialization: "Operations Management",
+      course: "MBA Plus",
+      specialization: "Human Resource Management",
     },
     {
-      course: "MBA",
-      specialization: "Hospital Administration and Health Care Management",
+      course: "MBA Plus",
+      specialization: "Healthcare and Hospital Management",
     },
     {
-      course: "MBA",
-      specialization: "International Business Management",
+      course: "MBA Plus",
+      specialization: "Operation & Product Management",
     },
     {
-      course: "MBA",
-      specialization: "FinTech Management",
+      course: "MBA Plus",
+      specialization: "Hospital And Healthcare Management",
     },
     {
-      course: "MBA",
-      specialization: "Business Analytics Management",
+      course: "MBA Plus",
+      specialization: "Digital Marketing",
     },
     {
-      course: "MBA",
-      specialization: "Artificial Intelligence and Machine Learning",
+      course: "MBA Plus",
+      specialization: "Entrepreneurship Management",
     },
     {
-      course: "MBA",
-      specialization: "Logistics, Materials and Supply Chain Management",
+      course: "MBA Plus",
+      specialization: "Event Management",
     },
     {
-      course: "MBA",
-      specialization: "Block Chain Management",
+      course: "MBA Plus",
+      specialization: "Finance",
     },
     {
-      course: "MBA",
-      specialization: "Digital Marketing Management",
+      course: "MBA Plus",
+      specialization: "International Business",
     },
     {
-      course: "MBA",
-      specialization: "AgriBusiness Management",
+      course: "MBA Plus",
+      specialization: "Logistic & Supply Chain Management",
     },
     {
-      course: "MBA",
-      specialization: "General",
+      course: "MBA Plus",
+      specialization: "Retail Management",
+    },
+    {
+      course: "MBA Plus",
+      specialization: "Sales & Marketing",
     },
   ],
   UPES: [
@@ -1471,139 +1499,111 @@ const variable = {
   DYPATIL: [
     {
       course: "BBA",
-      specialization: "Hospital Management",
+      specialization: "Retail Management",
     },
     {
       course: "BBA",
-      specialization: "Retail Operations",
+      specialization: "E-Commerce Management",
     },
     {
       course: "BBA",
-      specialization: "Human Resources",
+      specialization: "Banking Financial Services and Insurance Management",
     },
     {
       course: "BBA",
-      specialization: "Event Management",
+      specialization: "International Business Management",
+    },
+    {
+      course: "BBA",
+      specialization: "IT and Systems Management",
+    },
+    {
+      course: "BBA",
+      specialization: "Finance Management",
+    },
+    {
+      course: "BBA",
+      specialization: "Human Resource Management",
     },
     {
       course: "BBA",
       specialization: "Marketing Management",
-    },
-    {
-      course: "BBA",
-      specialization: "Logistics & Supply Chain",
     },
     {
       course: "BBA",
       specialization: "General",
     },
     {
-      course: "BBA",
-      specialization: "Investment Banking",
+      course: "Certificate",
+      specialization: "Hospital & Health Care Management",
     },
     {
-      course: "MBA",
-      specialization: "International Business",
-    },
-    {
-      course: "MBA",
-      specialization: "Sales And Marketing",
-    },
-    {
-      course: "MBA",
-      specialization: "Human Resource Management",
-    },
-    {
-      course: "MBA",
-      specialization: "Hospital And Healthcare Management",
-    },
-    {
-      course: "MBA",
-      specialization: "Finance",
-    },
-    {
-      course: "MBA",
-      specialization: "Retail Management",
-    },
-    {
-      course: "MBA",
-      specialization: "Logistics & Supply Chain Management",
-    },
-    {
-      course: "MBA",
-      specialization: "Entrepreneurship Management",
-    },
-    {
-      course: "MBA",
-      specialization: "Event Management",
-    },
-    {
-      course: "MBA",
+      course: "Certificate",
       specialization: "Digital Marketing",
     },
     {
       course: "MBA",
-      specialization: "Data Science And Business Analytics",
-    },
-    {
-      course: "MBA Plus",
-      specialization: "Finance Management",
-    },
-    {
-      course: "MBA Plus",
-      specialization: "Logistics & Supply Chain Management",
-    },
-    {
-      course: "MBA Plus",
       specialization: "Marketing Management",
     },
     {
-      course: "MBA Plus",
+      course: "MBA",
       specialization: "Human Resource Management",
     },
     {
-      course: "MBA Plus",
-      specialization: "Healthcare and Hospital Management",
+      course: "MBA",
+      specialization: "Finance Management",
     },
     {
-      course: "MBA Plus",
-      specialization: "Operation & Product Management",
+      course: "MBA",
+      specialization: "IT Management",
     },
     {
-      course: "MBA Plus",
-      specialization: "Hospital And Healthcare Management",
+      course: "MBA",
+      specialization: "Project Management",
     },
     {
-      course: "MBA Plus",
-      specialization: "Digital Marketing",
+      course: "MBA",
+      specialization: "Operations Management",
     },
     {
-      course: "MBA Plus",
-      specialization: "Entrepreneurship Management",
+      course: "MBA",
+      specialization: "Hospital Administration and Health Care Management",
     },
     {
-      course: "MBA Plus",
-      specialization: "Event Management",
+      course: "MBA",
+      specialization: "International Business Management",
     },
     {
-      course: "MBA Plus",
-      specialization: "Finance",
+      course: "MBA",
+      specialization: "FinTech Management",
     },
     {
-      course: "MBA Plus",
-      specialization: "International Business",
+      course: "MBA",
+      specialization: "Business Analytics Management",
     },
     {
-      course: "MBA Plus",
-      specialization: "Logistic & Supply Chain Management",
+      course: "MBA",
+      specialization: "Artificial Intelligence and Machine Learning",
     },
     {
-      course: "MBA Plus",
-      specialization: "Retail Management",
+      course: "MBA",
+      specialization: "Logistics, Materials and Supply Chain Management",
     },
     {
-      course: "MBA Plus",
-      specialization: "Sales & Marketing",
+      course: "MBA",
+      specialization: "Block Chain Management",
+    },
+    {
+      course: "MBA",
+      specialization: "Digital Marketing Management",
+    },
+    {
+      course: "MBA",
+      specialization: "AgriBusiness Management",
+    },
+    {
+      course: "MBA",
+      specialization: "General",
     },
   ],
   KUK: [

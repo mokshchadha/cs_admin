@@ -7,7 +7,7 @@ import {
   formatPhoneNumber,
   formatDateOfBirth,
 } from "../../../../../lib/externalApi";
-import universities from "../../../../../lib/universities.json";
+import universities from "../../../../../lib/universities";
 import { ExternalApiRequest } from "../../../../../lib/types";
 import mongoose from "mongoose";
 
@@ -100,6 +100,7 @@ export async function POST(
     };
 
     const externalApiResponse = await createStudentId(externalApiData);
+    console.log({ externalApiData });
 
     if (!externalApiResponse.status || !externalApiResponse.student_id) {
       console.error("External API failed:", externalApiResponse);

@@ -3,7 +3,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import universities from "../lib/universities.json";
+import universities from "../lib/universities";
 import coursesData from "../lib/courses";
 import { DatabaseUser, CourseAssignment } from "../lib/types";
 

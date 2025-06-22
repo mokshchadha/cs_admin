@@ -18,7 +18,6 @@ export async function createStudentId(
       },
       body: JSON.stringify(data),
     });
-
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
