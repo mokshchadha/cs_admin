@@ -36,6 +36,7 @@ export default function AssignInternshipForm({
       setSelectedCompanyId("");
       setSelectedInternshipId("");
       setAssignedInternships([]);
+      setExpandedDetails(new Set());
       setError("");
     }
   }, [isOpen, user]);
@@ -127,6 +128,25 @@ export default function AssignInternshipForm({
     }
   };
 
+  const [expandedDetails, setExpandedDetails] = useState<Set<string>>(
+    new Set()
+  );
+
+  const toggleDetailsExpansion = (assignmentId: string) => {
+    const newExpanded = new Set(expandedDetails);
+    if (newExpanded.has(assignmentId)) {
+      newExpanded.delete(assignmentId);
+    } else {
+      newExpanded.add(assignmentId);
+    }
+    setExpandedDetails(newExpanded);
+  };
+
+  const truncateText = (text: string, maxLength: number = 150) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + "...";
+  };
+
   return (
     <div
       className={`fixed top-0 right-0 h-full bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out ${
@@ -181,29 +201,19 @@ export default function AssignInternshipForm({
               <h3 className="text-lg font-medium text-gray-900 mb-3">
                 Current Assignments ({assignedInternships.length})
               </h3>
-              <div className="space-y-3 max-h-64 overflow-y-auto">
+              <div className="space-y-4 max-h-64 overflow-y-auto">
                 {assignedInternships.map((assignment, index) => (
                   <div
                     key={assignment._id || index}
-                    className="p-3 bg-blue-50 border border-blue-200 rounded-lg"
+                    className="p-4 bg-blue-50 border border-blue-200 rounded-lg"
                   >
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-start justify-between mb-3">
                       <div className="flex-1 min-w-0">
                         <div className="font-medium text-blue-900 truncate">
                           {assignment.designation}
                         </div>
                         <div className="text-sm text-blue-700 truncate">
                           {assignment.companyName}
-                        </div>
-                        <div className="text-xs text-blue-600 mt-1">
-                          Duration: {assignment.duration} | Stipend: ₹
-                          {assignment.stipend.toLocaleString()}
-                        </div>
-                        <div className="text-xs text-blue-600">
-                          Location: {assignment.location}
-                        </div>
-                        <div className="text-xs text-blue-500 mt-1">
-                          Assigned: {formatDate(assignment.assignedAt)}
                         </div>
                       </div>
                       <span
@@ -213,6 +223,55 @@ export default function AssignInternshipForm({
                       >
                         {assignment.status}
                       </span>
+                    </div>
+
+                    <div className="space-y-2 text-sm">
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="text-blue-600">
+                          <strong>Duration:</strong> {assignment.duration}
+                        </div>
+                        <div className="text-blue-600">
+                          <strong>Stipend:</strong> ₹
+                          {assignment.stipend.toLocaleString()}
+                        </div>
+                      </div>
+
+                      <div className="text-blue-600">
+                        <strong>Location:</strong> {assignment.location}
+                      </div>
+
+                      <div className="text-blue-600">
+                        <strong>Assigned:</strong>{" "}
+                        {formatDate(assignment.assignedAt)}
+                      </div>
+
+                      {/* Details section */}
+                      <div className="text-blue-700 mt-3">
+                        <strong className="block text-blue-800 mb-1">
+                          Details:
+                        </strong>
+                        <div className="text-sm bg-blue-25 p-2 rounded border border-blue-100">
+                          <p className="text-blue-700 leading-relaxed">
+                            {expandedDetails.has(assignment._id || `${index}`)
+                              ? assignment.details
+                              : truncateText(assignment.details, 150)}
+                          </p>
+                          {assignment.details.length > 150 && (
+                            <button
+                              className="text-blue-600 hover:text-blue-800 text-xs mt-1 underline"
+                              onClick={() =>
+                                toggleDetailsExpansion(
+                                  assignment._id || `${index}`
+                                )
+                              }
+                            >
+                              {expandedDetails.has(assignment._id || `${index}`)
+                                ? "Show less"
+                                : "Read more"}
+                            </button>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -324,10 +383,14 @@ export default function AssignInternshipForm({
                             <strong>Location:</strong>{" "}
                             {selectedInternship.location}
                           </p>
-                          <p>
-                            <strong>Details:</strong>{" "}
-                            {selectedInternship.details}
-                          </p>
+                          <div className="mt-2">
+                            <strong className="block text-gray-800 mb-1">
+                              Details:
+                            </strong>
+                            <div className="bg-white p-2 rounded border text-gray-700 leading-relaxed">
+                              {selectedInternship.details}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     );
