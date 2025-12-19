@@ -11,7 +11,6 @@ import "./globals.css";
 //   user?: User;
 // }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
