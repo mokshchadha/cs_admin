@@ -81,7 +81,7 @@ export interface DatabaseUser {
   assignedCourses?: CourseAssignment[];
   // New internship assignments field
   assignedInternships?: InternshipAssignment[];
-  tags?: Tag[];
+  tags?: (Tag | string)[];
   createdAt: string;
   updatedAt: string;
 }

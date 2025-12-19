@@ -2,15 +2,14 @@
 import { cookies } from "next/headers";
 import { verifyToken } from "../../lib/auth";
 import { redirect } from "next/navigation";
-import Navbar from "../../components/Navbar";
 
-interface DashboardLayoutProps {
+interface CompaniesLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function DashboardLayout({
+export default async function CompaniesLayout({
   children,
-}: DashboardLayoutProps) {
+}: CompaniesLayoutProps) {
   const cookieStore = await cookies();
   const token = cookieStore.get("auth-token")?.value;
 
@@ -18,8 +17,7 @@ export default async function DashboardLayout({
     redirect("/login");
   }
 
-  const decoded = verifyToken(token);
-  const user = decoded ? { username: decoded.username } : undefined;
+
 
   return (
     <div className="min-h-screen bg-gray-50">

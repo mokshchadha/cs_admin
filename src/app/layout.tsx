@@ -11,15 +11,14 @@ import "./globals.css";
 //   user?: User;
 // }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Layout({ children, user }: any) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [currentUser, setCurrentUser] = useState<any>(user);
 
   // Fetch user if not provided (e.g. on client side navigation)
-  if (!currentUser && typeof window !== 'undefined') {
+  if (typeof window !== 'undefined') {
      // We can try to rely on specific page logic or just fetch simple profile
      // But for now, let's just use what we have or try to fetch
      // Actually, let's try to fetch if we don't have it

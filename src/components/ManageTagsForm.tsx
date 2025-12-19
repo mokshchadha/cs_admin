@@ -28,7 +28,7 @@ export default function ManageTagsForm({
       fetchTags();
       if (user && user.tags) {
         // Handle populated tags (objects) or IDs
-        const tagIds = user.tags.map((t: any) =>
+        const tagIds = user.tags.map((t) =>
           typeof t === "string" ? t : t._id
         );
         setSelectedTags(tagIds);

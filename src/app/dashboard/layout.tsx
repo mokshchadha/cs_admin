@@ -2,7 +2,6 @@
 import { cookies } from "next/headers";
 import { verifyToken } from "../../lib/auth";
 import { redirect } from "next/navigation";
-import Navbar from "../../components/Navbar";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -17,9 +16,6 @@ export default async function DashboardLayout({
   if (!token || !verifyToken(token)) {
     redirect("/login");
   }
-
-  const decoded = verifyToken(token);
-  const user = decoded ? { username: decoded.username } : undefined;
 
   return (
     <div className="min-h-screen bg-gray-50">

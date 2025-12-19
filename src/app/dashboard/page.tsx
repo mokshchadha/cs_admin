@@ -6,7 +6,7 @@ import CandidateForm from "../../components/CandidateForm";
 import AssignCourseForm from "../../components/AssignCourseForm";
 import AssignInternshipForm from "../../components/AssignInternshipForm";
 import ManageTagsForm from "../../components/ManageTagsForm";
-import { DatabaseUser, Tag } from "../../lib/types";
+import { DatabaseUser } from "../../lib/types";
 
 interface Pagination {
   page: number;
@@ -347,7 +347,7 @@ export default function Dashboard() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {user.tags && user.tags.length > 0 ? (
                           <div className="flex flex-wrap gap-1">
-                            {user.tags.map((tag: any) => (
+                            {user.tags.map((tag) => (
                               <span
                                 key={typeof tag === "string" ? tag : tag._id}
                                 className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800"

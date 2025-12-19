@@ -4,6 +4,7 @@ import dbConnect from "../../../lib/mongodb";
 import User from "../../../lib/models/User";
 import bcrypt from "bcrypt";
 import { verifyToken } from "../../../lib/auth";
+import "../../../lib/models/Tag"; // Ensure Tag model is registered
 
 export async function GET(request: NextRequest) {
   try {
