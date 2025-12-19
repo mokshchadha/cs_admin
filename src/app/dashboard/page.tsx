@@ -5,7 +5,8 @@ import { useState, useEffect, useCallback } from "react";
 import CandidateForm from "../../components/CandidateForm";
 import AssignCourseForm from "../../components/AssignCourseForm";
 import AssignInternshipForm from "../../components/AssignInternshipForm";
-import { DatabaseUser } from "../../lib/types";
+import ManageTagsForm from "../../components/ManageTagsForm";
+import { DatabaseUser, Tag } from "../../lib/types";
 
 interface Pagination {
   page: number;
@@ -27,6 +28,7 @@ export default function Dashboard() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isAssignCourseOpen, setIsAssignCourseOpen] = useState(false);
   const [isAssignInternshipOpen, setIsAssignInternshipOpen] = useState(false);
+  const [isManageTagsOpen, setIsManageTagsOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<DatabaseUser | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [usersLoading, setUsersLoading] = useState(false);
@@ -110,6 +112,12 @@ export default function Dashboard() {
     }
   };
 
+  const handleManageTags = () => {
+    if (selectedUser) {
+      setIsManageTagsOpen(true);
+    }
+  };
+
   const handleRowClick = (user: DatabaseUser) => {
     setSelectedUser(user);
   };
@@ -151,7 +159,10 @@ export default function Dashboard() {
   return (
     <div
       className={`transition-all duration-300 ease-in-out ${
-        isFormOpen || isAssignCourseOpen || isAssignInternshipOpen
+        isFormOpen ||
+        isAssignCourseOpen ||
+        isAssignInternshipOpen ||
+        isManageTagsOpen
           ? "mr-[400px]"
           : ""
       }`}
@@ -168,17 +179,28 @@ export default function Dashboard() {
             </p>
           </div>
           <div className="mt-4 sm:mt-0 flex space-x-3">
-            <button
-              onClick={() => handleEditUser()}
-              disabled={!selectedUser}
-              className={`px-4 py-2 rounded-md font-medium transition-colors ${
-                selectedUser
-                  ? "bg-orange-600 hover:bg-orange-700 text-white"
-                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
-              }`}
-            >
-              Edit User
-            </button>
+              <button
+                onClick={() => handleEditUser()}
+                disabled={!selectedUser}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  selectedUser
+                    ? "bg-orange-600 hover:bg-orange-700 text-white"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
+              >
+                Edit User
+              </button>
+              <button
+                onClick={handleManageTags}
+                disabled={!selectedUser}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  selectedUser
+                    ? "bg-teal-600 hover:bg-teal-700 text-white"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
+              >
+                Edit Tags
+              </button>
             <button
               onClick={handleAssignCourse}
               disabled={!selectedUser}
@@ -264,6 +286,9 @@ export default function Dashboard() {
                       Phone Number
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Tags
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Date of Birth
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -318,6 +343,22 @@ export default function Dashboard() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {user.phoneNumber}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        {user.tags && user.tags.length > 0 ? (
+                          <div className="flex flex-wrap gap-1">
+                            {user.tags.map((tag: any) => (
+                              <span
+                                key={typeof tag === "string" ? tag : tag._id}
+                                className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800"
+                              >
+                                {typeof tag === "string" ? "..." : tag.name}
+                              </span>
+                            ))}
+                          </div>
+                        ) : (
+                          <span className="text-gray-400">-</span>
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {formatDateOfBirth(user.dateOfBirth)}
@@ -448,6 +489,17 @@ export default function Dashboard() {
         isOpen={isAssignInternshipOpen}
         onClose={() => {
           setIsAssignInternshipOpen(false);
+        }}
+        onSuccess={handleFormSuccess}
+        user={selectedUser}
+      />
+
+      {/* Manage Tags Form Slide Panel */}
+      <ManageTagsForm
+        isOpen={isManageTagsOpen}
+        onClose={() => {
+          setIsManageTagsOpen(false);
+          // Don't clear selected user here as we might want to edit again
         }}
         onSuccess={handleFormSuccess}
         user={selectedUser}

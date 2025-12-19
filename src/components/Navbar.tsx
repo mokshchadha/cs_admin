@@ -36,6 +36,11 @@ export default function Navbar({ user }: NavbarProps) {
       href: "/companies",
       current: pathname === "/companies",
     },
+    {
+      name: "Tags",
+      href: "/tags",
+      current: pathname === "/tags",
+    },
   ];
 
   if (!user) return null;

@@ -38,6 +38,7 @@ export async function GET(request: NextRequest) {
     const [users, total] = await Promise.all([
       User.find(searchQuery)
         .select("-password -forgotPasswordToken -verifyToken")
+        .populate("tags")
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limit)

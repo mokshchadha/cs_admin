@@ -81,6 +81,7 @@ export interface DatabaseUser {
   assignedCourses?: CourseAssignment[];
   // New internship assignments field
   assignedInternships?: InternshipAssignment[];
+  tags?: Tag[];
   createdAt: string;
   updatedAt: string;
 }
@@ -103,4 +104,12 @@ export interface ExternalApiRequest {
   source: string;
   sub_source: string;
   lead_owner: string;
+}
+
+export interface Tag {
+  _id: string;
+  name: string;
+  definition: string;
+  createdAt: string;
+  updatedAt: string;
 }

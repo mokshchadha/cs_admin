@@ -159,6 +159,12 @@ const userSchema = new mongoose.Schema(
     forgotPasswordTokenExpiry: Date,
     verifyToken: String,
     verifyTokenExpiry: Date,
+    tags: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tag",
+      },
+    ],
   },
   {
     timestamps: true,
