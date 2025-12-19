@@ -25,6 +25,7 @@ export default function Dashboard() {
     pages: 0,
   });
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isAssignCourseOpen, setIsAssignCourseOpen] = useState(false);
   const [isAssignInternshipOpen, setIsAssignInternshipOpen] = useState(false);
@@ -32,6 +33,16 @@ export default function Dashboard() {
   const [selectedUser, setSelectedUser] = useState<DatabaseUser | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [usersLoading, setUsersLoading] = useState(false);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search]);
 
   useEffect(() => {
     // Check authentication
@@ -54,7 +65,7 @@ export default function Dashboard() {
       const params = new URLSearchParams({
         page: pagination.page.toString(),
         limit: pagination.limit.toString(),
-        search: search,
+        search: debouncedSearch,
       });
 
       const response = await fetch(`/api/users?${params}`);
@@ -68,7 +79,7 @@ export default function Dashboard() {
       console.error("Error fetching users:", error);
     }
     setUsersLoading(false);
-  }, [pagination.page, pagination.limit, search]);
+  }, [pagination.page, pagination.limit, debouncedSearch]);
 
   useEffect(() => {
     if (!loading) {
