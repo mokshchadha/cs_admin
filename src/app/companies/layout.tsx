@@ -23,7 +23,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar user={user} />
+      {/* <Navbar user={user} /> */}
       <main>{children}</main>
     </div>
   );

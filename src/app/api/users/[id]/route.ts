@@ -33,7 +33,9 @@ export async function PUT(
     const user = await User.findByIdAndUpdate(id, userData, {
       new: true,
       runValidators: true,
-    }).select("-password -forgotPasswordToken -verifyToken");
+    })
+      .select("-password -forgotPasswordToken -verifyToken")
+      .populate("tags");
 
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });

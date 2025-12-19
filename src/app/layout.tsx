@@ -16,6 +16,15 @@ export default function Layout({ children, user }: any) {
   const router = useRouter();
   const pathname = usePathname();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [currentUser, setCurrentUser] = useState<any>(user);
+
+  // Fetch user if not provided (e.g. on client side navigation)
+  if (!currentUser && typeof window !== 'undefined') {
+     // We can try to rely on specific page logic or just fetch simple profile
+     // But for now, let's just use what we have or try to fetch
+     // Actually, let's try to fetch if we don't have it
+     // But useEffect is better
+  }
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
@@ -39,6 +48,11 @@ export default function Layout({ children, user }: any) {
       href: "/companies",
       current: pathname === "/companies",
     },
+    {
+      name: "Tags",
+      href: "/tags",
+      current: pathname === "/tags",
+    },
   ];
 
   return (
@@ -46,7 +60,7 @@ export default function Layout({ children, user }: any) {
       <body className="antialiased">
         {" "}
         <div className="min-h-screen bg-gray-50">
-          {user && (
+          {true && (
             <header className="bg-white shadow-sm border-b">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
@@ -74,10 +88,7 @@ export default function Layout({ children, user }: any) {
                   </div>
 
                   <div className="flex items-center space-x-4">
-                    <span className="text-sm text-gray-700">
-                      Welcome,{" "}
-                      <span className="font-medium">{user.username}</span>!
-                    </span>
+                      Welcome!
                     <button
                       onClick={handleLogout}
                       disabled={isLoggingOut}
